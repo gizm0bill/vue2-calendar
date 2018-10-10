@@ -81,13 +81,12 @@ const filterEventsForDate = (date, events) => {
 };
 
 const dateOccursIn = (date, daysObj) => {
-  if (daysObj.dates) {
-    return daysObj.dates.some(d => date.toDateString() === d.toDateString());
-  }
-
-  if (daysObj.to && date < daysObj.to) return true;
-  if (daysObj.from && date > daysObj.from) return true;
-  if (daysObj.days && daysObj.days.indexOf(date.getDay()) !== -1) return true;
+  let ret = false;
+  if ( daysObj.dates ) ret |= daysObj.dates.some(d => date.toDateString() === d.toDateString());
+  if (daysObj.to && date < daysObj.to) ret |= true;
+  if (daysObj.from && date > daysObj.from) ret |= true;
+  if (daysObj.days && daysObj.days.indexOf(date.getDay()) !== -1) ret |= true;
+  return !!ret;
 };
 
 export default {
