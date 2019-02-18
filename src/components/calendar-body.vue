@@ -13,7 +13,7 @@
           class="week-day"
           :class="dayClasses(day)"
           v-for="(day, key) in week"
-          @click.stop="dayClicked(day)"
+          @click.stop="dayClicked(day, $event)"
         >
           <div class="day-number">
             {{ day.monthDay }}
@@ -90,8 +90,8 @@ export default {
 
       return Object.keys(classes).filter(key => classes[key] === true);
     },
-    dayClicked(day) {
-      this.$calendar.eventBus.$emit('day-clicked', day);
+    dayClicked(day, event) {
+      this.$calendar.eventBus.$emit('day-clicked', {day, event});
     },
     getEventsForDay(date) {
       return calendarJs.filterEventsForDate(date, this.events);
